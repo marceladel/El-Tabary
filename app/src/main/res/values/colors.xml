@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="blue_start">#0f93b8</color>
+    <color name="blue_end">#0f93b8</color>
+    <color name="lgrey_start">#BFC0C0</color>
+    <color name="lgrey_end">#AEB2B7</color>
+    <color name="dgrey_start">#4E4F50</color>
+    <color name="dgrey_end">#2C3137</color>
+    <color name="item_grey_start">#B4B8BA</color>
+    <color name="item_grey_end">#62707C</color>
+    <color name="black_start">#333333</color>
+    <color name="Gray">#ff888888</color>
+
+    <color name="black">#ff000000</color>
+    <color name="dark_red">#990000</color>
+
+    <color name="white">#ffffffff</color>
+    <color name="orange">#FF6600</color>
+    <color name="dark_green">#99CC33</color>
+    <color name="hadeth">#128d01</color>
+    <color name="quran">#e07e00</color>
+    <color name="part">#2173fa</color>
+    <color name="source_info">#d2042b</color>
+    <color name="menu_color">#F2434a7e</color>
+    <color name="header1_text">#ffffff</color>
+    <color name="header2_text">#8487ca</color>
+    <color name="header_background">#434a7e</color>
+    <color name="sora_background">#f7f6fc</color>
+    <color name="number_txt">#8885a2</color>
+    <color name="sora_txt">#474354</color>
+    <color name="info_bg">#edeef3</color>
+    <color name="light_gray_header_color">#646663</color>
+    <color name="transpernt">#ccffffff</color>
+    <color name="search_res_bg">#f7f6fc</color>
+    <color name="back_bg">#333a66</color>
+
+</resources>

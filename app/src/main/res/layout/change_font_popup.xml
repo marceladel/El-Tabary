@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#cc434a7e">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@color/white"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:orientation="vertical"
+        android:padding="20dp"
+        android:layout_weight="1"
+        android:rotationY="180">
+       <TextView
+           android:id="@+id/txt1"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:text="تغيير نوع الخط"
+           android:layout_gravity="left"
+           android:rotationY="180"
+           android:textSize="30sp"
+           android:textColor="@color/black" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:orientation="vertical"
+        android:padding="20dp"
+        android:layout_weight="1"
+        android:rotationY="180">
+        <TextView
+            android:id="@+id/txt2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="الخط الثلث"
+            android:layout_gravity="center"
+            android:textSize="25sp"
+            android:rotationY="180"
+            android:textColor="@color/black" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:orientation="vertical"
+        android:padding="20dp"
+        android:layout_weight="1"
+        android:rotationY="180">
+        <TextView
+            android:id="@+id/txt3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="الخط الديواني"
+            android:layout_gravity="center"
+            android:rotationY="180"
+            android:textSize="25sp"
+            android:textColor="@color/black" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:orientation="vertical"
+        android:padding="20dp"
+        android:layout_weight="1"
+        android:rotationY="180">
+        <TextView
+            android:id="@+id/txt4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="الخط النسخ"
+            android:layout_gravity="center"
+            android:textSize="25sp"
+            android:rotationY="180"
+            android:textColor="@color/black" />
+    </LinearLayout>
+    </LinearLayout>
+
+
+</LinearLayout>
