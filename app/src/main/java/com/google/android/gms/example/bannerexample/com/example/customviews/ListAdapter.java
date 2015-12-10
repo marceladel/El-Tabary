@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import com.google.android.gms.example.bannerexample.R;
 import com.google.android.gms.example.bannerexample.com.example.constant.Constants;
+import com.google.android.gms.example.bannerexample.com.example.constant.StoreData;
 
 import java.util.ArrayList;
 
@@ -75,7 +76,7 @@ public class ListAdapter extends ArrayAdapter<String> {
         rowView = inflater.inflate(R.layout.list_item2, null);
         holder.ayaName = (TextView) rowView.findViewById(R.id.list_item);
         // holder.text.setTextDirection(View.TEXT_DIRECTION_RTL);
-        holder.ayaName.setTypeface(new Constants(context).getTypeFaceStandard(context));
+        holder.ayaName.setTypeface(new StoreData(context).getTypeFaceStandard(context));
         holder.ayaName.setText(ayatList.get(position));
         //holder.soraName.setTextSize(textSize);
 

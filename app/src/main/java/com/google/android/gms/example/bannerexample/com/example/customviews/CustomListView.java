@@ -106,19 +106,17 @@ public class CustomListView extends ArrayAdapter<String> {
         this.sourceInfoWithoutTashkel = sourceInfoWithoutTashkel;
         this.files = files;
         db = new DataBaseHelper(context);
-        typeface = new Constants(context).getTypeFacenaskh(context);
-
-
-        typeface = new Constants(context).getTypeface();
-        textSize = new Constants(context).getTextSize();
-        tashkelFlag = new Constants(context).getTashkel();
+        typeface = new StoreData(context).getTypeFacenaskh(context);
+        typeface = new StoreData(context).getTypeface();
+        textSize = new StoreData(context).getTextSize();
+        tashkelFlag = new StoreData(context).getTashkel();
 
 
     }
 
     public void setTextSize(float size) {
         textSize = size;
-        new Constants(context).setTextSize(textSize);
+        new StoreData(context).setTextSize(textSize);
 
     }
 
@@ -156,7 +154,7 @@ public class CustomListView extends ArrayAdapter<String> {
 
         Log.d("listSize", textSize + "");
         Log.d("typeface is", typeface.toString() + "");
-        tashkelFlag = new Constants(context).getTashkel();
+        tashkelFlag = new StoreData(context).getTashkel();
         Log.d("tashkel is", tashkelFlag + "");
 
         Log.d("files pos1",files.get(position));

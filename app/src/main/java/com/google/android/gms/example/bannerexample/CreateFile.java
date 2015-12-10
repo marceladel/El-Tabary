@@ -41,7 +41,6 @@ import com.google.android.gms.ads.AdView;
 import com.google.android.gms.example.bannerexample.com.example.constant.ArabicNormalizer;
 import com.google.android.gms.example.bannerexample.com.example.constant.Constants;
 import com.google.android.gms.example.bannerexample.com.example.constant.NavDrawerItem;
-import com.google.android.gms.example.bannerexample.com.example.customviews.CustomeGridView;
 import com.google.android.gms.example.bannerexample.com.example.customviews.ListAdapter;
 import com.google.android.gms.example.bannerexample.com.example.customviews.NavDrawerListAdapter;
 import com.google.android.gms.example.bannerexample.com.example.parsing.Data;
@@ -82,7 +81,6 @@ public class CreateFile extends Activity implements AdapterView.OnItemClickListe
     ArrayList<String> idvalues = new ArrayList<String>();
     ArrayList<String> ayatNumbers = new ArrayList<String>();
     GridView gridview;
-    CustomeGridView customeGridView;
     String content = null;
     RelativeLayout header1;
     RelativeLayout header2;
@@ -704,10 +702,6 @@ public class CreateFile extends Activity implements AdapterView.OnItemClickListe
             writer.append(jsonStr);
 
 
-
-
-
-
 //            System.out.println("jsonString: "+jsonStr);
 //            writer.append("]}");
             writer.flush();
@@ -728,7 +722,7 @@ public class CreateFile extends Activity implements AdapterView.OnItemClickListe
 //        gotoAyatPage.putExtra("id", idvalues.get(position));
 //        startActivity(gotoAyatPage);
 
-        Intent test= new Intent(getApplicationContext(), Test2.class);
-        startActivity(test);
+//        Intent test= new Intent(getApplicationContext(), Test2.class);
+//        startActivity(test);
     }
 }

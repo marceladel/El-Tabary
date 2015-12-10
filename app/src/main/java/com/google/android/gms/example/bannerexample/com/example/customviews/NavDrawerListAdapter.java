@@ -31,6 +31,7 @@ import com.google.android.gms.example.bannerexample.SearchActivity;
 import com.google.android.gms.example.bannerexample.TextFragment;
 import com.google.android.gms.example.bannerexample.com.example.constant.Constants;
 import com.google.android.gms.example.bannerexample.com.example.constant.NavDrawerItem;
+import com.google.android.gms.example.bannerexample.com.example.constant.StoreData;
 
 import java.util.ArrayList;
 
@@ -83,7 +84,7 @@ public class NavDrawerListAdapter extends BaseAdapter {
 
         imgIcon.setImageResource(navDrawerItems.get(position).getIcon());
         txtTitle.setText(navDrawerItems.get(position).getTitle());
-        txtTitle.setTypeface(new Constants(context).getTypeFaceStandard(context));
+        txtTitle.setTypeface(new StoreData(context).getTypeFaceStandard(context));
 
         LinearLayout drawer = (LinearLayout) convertView.findViewById(R.id.drawer_layout);
         drawer.getLayoutParams().height = height;

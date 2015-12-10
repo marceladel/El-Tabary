@@ -1,7 +1,9 @@
 package com.google.android.gms.example.bannerexample;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
@@ -17,19 +19,23 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewTreeObserver;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.example.bannerexample.com.android.tabary.database.DataBaseHelper;
 import com.google.android.gms.example.bannerexample.com.android.tabary.database.FileData;
 import com.google.android.gms.example.bannerexample.com.example.constant.ArabicNormalizer;
 import com.google.android.gms.example.bannerexample.com.example.constant.Constants;
 import com.google.android.gms.example.bannerexample.com.example.constant.NavDrawerItem;
+import com.google.android.gms.example.bannerexample.com.example.constant.StoreData;
 import com.google.android.gms.example.bannerexample.com.example.customviews.BookmarListView;
 import com.google.android.gms.example.bannerexample.com.example.customviews.NavDrawerListAdapter;
 import com.google.android.gms.example.bannerexample.com.example.customviews.SearchAdapter;
@@ -79,19 +85,20 @@ public class BookMarkActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_book_mark);
+        db = new DataBaseHelper(this);
 
-        hideTashkel=new Constants(this).getTashkel();
+        hideTashkel = new StoreData(this).getTashkel();
         header1 = (TextView) findViewById(R.id.header1);
         header2 = (TextView) findViewById(R.id.header2);
-        textNoRes=(TextView)findViewById(R.id.text);
+        textNoRes = (TextView) findViewById(R.id.text);
         textNoRes.setVisibility(View.INVISIBLE);
 
         DisplayMetrics metrics = this.getResources().getDisplayMetrics();
         final int screenWidth = metrics.widthPixels;
         final int screenHeight = metrics.heightPixels;
 
-        header2.setTypeface(new Constants(this).getHeaderTypeFace(this));
-        header1.setTypeface(new Constants(this).getHeaderTypeFace(this));
+        header2.setTypeface(new StoreData(this).getHeaderTypeFace(this));
+        header1.setTypeface(new StoreData(this).getHeaderTypeFace(this));
         back = (ImageButton) findViewById(R.id.back);
         menu = (ImageButton) findViewById(R.id.menu_button);
         header = (RelativeLayout) findViewById(R.id.header);
@@ -115,21 +122,23 @@ public class BookMarkActivity extends Activity {
         header = (RelativeLayout) findViewById(R.id.header);
         params = new DrawerLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.MATCH_PARENT);
 
+        getData();
+
 
         listView = (ListView) findViewById(R.id.list);
-        db = new DataBaseHelper(this);
-        Log.d("Reading: ", "Reading all contacts..");
-        List<FileData> contacts = db.getAllContacts();
+        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
 
-        for (FileData cn : contacts) {
-            files.add(cn.getFilename());
-            headers.add(cn.getHeader());
-            supheaders.add(cn.getSupHeader());
-            String log = "Id: " + cn.getId() + " ,Name: " + cn.getFilename() + " ,header: " + cn.getHeader() + " ,supheader: " + cn.getSupHeader();
-            // Writing Contacts to log
-            Log.d("Name: ", log);
-        }
+                hideTashkel = new StoreData(getApplicationContext()).getTashkel();
 
+                showAlertDialog(position);
+
+
+                Log.d("inside Onlonglick", "msg");
+                return false;
+            }
+        });
 
 
         ViewTreeObserver viewTreeObserver2 = header
@@ -174,7 +183,7 @@ public class BookMarkActivity extends Activity {
                             int height = header.getHeight();
                             params.topMargin = height;
                             params.gravity = Gravity.RIGHT;
-                            params.width=screenWidth-height;
+                            params.width = screenWidth - height;
                             mDrawerList.setLayoutParams(params);
 
 
@@ -198,7 +207,7 @@ public class BookMarkActivity extends Activity {
         // What's hot, We  will add a counter here
 
         // Recycle the typed array
-      //  navMenuIcons.recycle();
+        //  navMenuIcons.recycle();
 
         // setting the nav drawer list adapter
         adapter = new NavDrawerListAdapter(BookMarkActivity.this,
@@ -261,10 +270,9 @@ public class BookMarkActivity extends Activity {
     }
 
     @Override
-    protected  void onResume()
-    {
+    protected void onResume() {
         super.onResume();
-       updateData();
+        updateData();
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -302,16 +310,31 @@ public class BookMarkActivity extends Activity {
         return super.onPrepareOptionsMenu(menu);
     }
 
-    public void updateData()
-    {
-        hideTashkel=new Constants(getApplicationContext()).getTashkel();
+    public void getData() {
+        Log.d("Reading: ", "Reading all contacts..");
+        List<FileData> contacts = db.getAllContacts();
+
+        for (FileData cn : contacts) {
+            files.add(cn.getFilename());
+            headers.add(cn.getHeader());
+            supheaders.add(cn.getSupHeader());
+            String log = "Id: " + cn.getId() + " ,Name: " + cn.getFilename() + " ,header: " + cn.getHeader() + " ,supheader: " + cn.getSupHeader();
+            // Writing Contacts to log
+            Log.d("Name: ", log);
+        }
+    }
+
+    public void updateData() {
+
+
+        hideTashkel = new StoreData(getApplicationContext()).getTashkel();
         Log.d("case1", "msg");
         if (hideTashkel == false) {
             navDrawerItems.set(2, new NavDrawerItem(navMenuTitles[7], navMenuIcons.getResourceId(2, -1)));
             // Recycle the typed array
 //                    navMenuIcons.recycle();
             adapter.notifyDataSetChanged();
-            new Constants(getApplicationContext()).setTashkel(true);
+            new StoreData(getApplicationContext()).setTashkel(true);
             String value;
             for (int i = 0; i < headers.size(); i++) {
                 value = headers.get(i);
@@ -331,20 +354,18 @@ public class BookMarkActivity extends Activity {
 
         } else {
             navDrawerItems.set(2, new NavDrawerItem(navMenuTitles[2], navMenuIcons.getResourceId(2, -1)));
-            // Recycle the typed array
-//                    navMenuIcons.recycle();
             adapter.notifyDataSetChanged();
-            new Constants(getApplicationContext()).setTashkel(false);
+            new StoreData(getApplicationContext()).setTashkel(false);
             list = new BookmarListView(this, supheaders, headers, files);
             listView.setAdapter(list);
             //list.notifyDataSetChanged();
 
         }
-        if (headers.size()==0)
-        {
+        if (headers.size() == 0) {
             textNoRes.setVisibility(View.VISIBLE);
         }
     }
+
     /**
      * Diplaying fragment view for selected nav drawer list item
      */
@@ -359,7 +380,7 @@ public class BookMarkActivity extends Activity {
 
                 Intent gotoSearch = new Intent(getApplicationContext(), SearchActivity.class);
                 startActivity(gotoSearch);
-            //updateData();
+                //updateData();
 
                 break;
 
@@ -379,7 +400,7 @@ public class BookMarkActivity extends Activity {
 
                 View layout = layoutInflater.inflate(R.layout.change_font_popup, null);
                 final PopupWindow popup = new PopupWindow(layout, screenWidth,
-                        screenHeight , true);
+                        screenHeight, true);
                 popup.setBackgroundDrawable(getResources().getDrawable(
                         R.drawable.popup_drawable));
 
@@ -387,38 +408,38 @@ public class BookMarkActivity extends Activity {
                 popup.showAtLocation(layout, Gravity.CENTER_VERTICAL, 0, 0);
 
                 TextView txt1 = (TextView) layout.findViewById(R.id.txt1);
-                txt1.setTypeface(new Constants(getApplicationContext()).getTypeFaceStandard(getApplicationContext()));
+                txt1.setTypeface(new StoreData(getApplicationContext()).getTypeFaceStandard(getApplicationContext()));
 
                 TextView txt2 = (TextView) layout.findViewById(R.id.txt2);
-                txt2.setTypeface(new Constants(this).getTypeFaceThoulth(getApplicationContext()));
+                txt2.setTypeface(new StoreData(this).getTypeFaceThoulth(getApplicationContext()));
                 txt2.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         popup.dismiss();
-                        new Constants(getApplicationContext()).setTypeface(1);
+                        new StoreData(getApplicationContext()).setTypeface(1);
                         list.notifyDataSetChanged();
                     }
                 });
                 TextView txt3 = (TextView) layout.findViewById(R.id.txt3);
 
-                txt3.setTypeface(new Constants(this).getTypeFacediwany(getApplicationContext()));
+                txt3.setTypeface(new StoreData(this).getTypeFacediwany(getApplicationContext()));
                 txt3.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         popup.dismiss();
-                        new Constants(getApplicationContext()).setTypeface(2);
+                        new StoreData(getApplicationContext()).setTypeface(2);
                         list.notifyDataSetChanged();
 
                     }
                 });
                 TextView txt4 = (TextView) layout.findViewById(R.id.txt4);
-                txt4.setTypeface(new Constants(this).getTypeFacenaskh(getApplicationContext()));
+                txt4.setTypeface(new StoreData(this).getTypeFacenaskh(getApplicationContext()));
                 txt4.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
 
                         popup.dismiss();
-                        new Constants(getApplicationContext()).setTypeface(3);
+                        new StoreData(getApplicationContext()).setTypeface(3);
                         list.notifyDataSetChanged();
 
 
@@ -465,4 +486,58 @@ public class BookMarkActivity extends Activity {
         mDrawerToggle.syncState();
     }
 
+    public void showAlertDialog(final int pos) {
+        AlertDialog.Builder alert = new AlertDialog.Builder(
+                BookMarkActivity.this);
+        alert.setTitle("حذف العلامات المرجعية");
+        alert.setMessage("من فضلك أدخل اختيارك");
+
+//        InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+//        imm.toggleSoftInput(0, InputMethodManager.SHOW_FORCED); // show
+        alert.setPositiveButton("حذف",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog,
+                                        int whichButton) {
+
+
+                        Log.d("files is here", files.get(pos));
+
+//                        db.deleteTitle(files.get(pos));
+//                        getData();
+//                        adapter.notifyDataSetChanged();
+
+//                        ayatWithoutTashkel.clear();
+//                        soraWithoutTashkel.clear();
+//                        files.clear();
+//                        headers.clear();
+//                        supheaders.clear();
+//                        getData();
+//                        updateData();
+
+
+                        Log.d("id is", pos+1 + "");
+                        db.deleteTitle(String.valueOf(pos));
+                        getData();
+                        adapter.notifyDataSetChanged();
+
+
+                        Toast.makeText(getApplicationContext(),
+                                "لقد تم الحذف", Toast.LENGTH_SHORT)
+                                .show();
+
+                    }
+                });
+
+        alert.setNegativeButton("إلغاء",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog,
+                                        int whichButton) {
+                        Toast.makeText(getApplicationContext(),
+                                "لقد تم الغاء الحذف",
+                                Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+        alert.show();
+    }
 }

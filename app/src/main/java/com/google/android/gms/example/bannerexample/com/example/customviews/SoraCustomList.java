@@ -35,7 +35,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.example.bannerexample.AyatActivity;
 import com.google.android.gms.example.bannerexample.MainContentPage;
 import com.google.android.gms.example.bannerexample.R;
 import com.google.android.gms.example.bannerexample.com.example.constant.ArabicNormalizer;
@@ -121,7 +120,7 @@ public class SoraCustomList extends ArrayAdapter<String> {
         this.context = context;
         this.soraList = soraList;
         this.soraNumbers = soraNumbers;
-        typeface = new Constants(context).getTypeFacenaskh(context);
+        typeface = new StoreData(context).getTypeFacenaskh(context);
         this.ids = ids;
 
 
@@ -219,7 +218,7 @@ public class SoraCustomList extends ArrayAdapter<String> {
 
         holder.soraNumber = (TextView) rowView.findViewById(R.id.number);
         // holder.text.setTextDirection(View.TEXT_DIRECTION_RTL);
-        holder.soraNumber.setTypeface(new Constants(context).getTypeFaceStandard(context));
+        holder.soraNumber.setTypeface(new StoreData(context).getTypeFaceStandard(context));
         holder.soraNumber.setText(soraNumbers.get(position));
         holder.soraNumber.setTextSize(textSize);
         holder.relativelayout.setOnClickListener(new View.OnClickListener() {
@@ -243,7 +242,7 @@ public class SoraCustomList extends ArrayAdapter<String> {
                 popup.showAtLocation(layout, Gravity.CENTER_VERTICAL, 0, 0);
                 TextView soraName = (TextView) layout.findViewById(R.id.soraname);
                 TextView textView = (TextView) layout.findViewById(R.id.textview);
-                textView.setTypeface(new Constants(context).getTypeFacenaskh(context));
+                textView.setTypeface(new StoreData(context).getTypeFacenaskh(context));
 //                progressbar = (ProgressBar) layout.findViewById(R.id.loading);
 //                progressbar.setIndeterminateDrawable(context.getResources().getDrawable(
 //                        R.drawable.dialog_background));
@@ -285,7 +284,7 @@ public class SoraCustomList extends ArrayAdapter<String> {
                 value = "سورة" + " " + new ArabicNormalizer(value).getOutput();
                 Log.d("valueee", value);
                 soraName.setText("ايات سورة " + soraList.get(position));
-                soraName.setTypeface(new Constants(context).getTypeFaceStandard(context));
+                soraName.setTypeface(new StoreData(context).getTypeFaceStandard(context));
 
                 try {
                     fileContent = new Constants(context).readAssets(context, "eltabary", "search_file.txt");
@@ -390,33 +389,33 @@ public class SoraCustomList extends ArrayAdapter<String> {
                 popup.showAtLocation(layout, Gravity.CENTER_VERTICAL, 0, 0);
 
                 TextView tartebEslora = (TextView) layout.findViewById(R.id.txt1);
-                tartebEslora.setTypeface(new Constants(context).getTypeFacenaskh(context));
+                tartebEslora.setTypeface(new StoreData(context).getTypeFacenaskh(context));
                 TextView tartebEsloraValue = (TextView) layout.findViewById(R.id.txt2);
-                tartebEsloraValue.setTypeface(new Constants(context).getTypeFacenaskh(context));
+                tartebEsloraValue.setTypeface(new StoreData(context).getTypeFacenaskh(context));
                 TextView soraName2 = (TextView) layout.findViewById(R.id.txt3);
-                soraName2.setTypeface(new Constants(context).getTypeFacenaskh(context));
+                soraName2.setTypeface(new StoreData(context).getTypeFacenaskh(context));
                 TextView soraNameValue2 = (TextView) layout.findViewById(R.id.txt4);
-                soraNameValue2.setTypeface(new Constants(context).getTypeFacenaskh(context));
+                soraNameValue2.setTypeface(new StoreData(context).getTypeFacenaskh(context));
                 TextView tartebElnzol = (TextView) layout.findViewById(R.id.txt5);
-                tartebElnzol.setTypeface(new Constants(context).getTypeFacenaskh(context));
+                tartebElnzol.setTypeface(new StoreData(context).getTypeFacenaskh(context));
                 TextView tartebElnzolValue = (TextView) layout.findViewById(R.id.txt6);
-                tartebElnzolValue.setTypeface(new Constants(context).getTypeFacenaskh(context));
+                tartebElnzolValue.setTypeface(new StoreData(context).getTypeFacenaskh(context));
                 TextView ayatNumber2 = (TextView) layout.findViewById(R.id.txt7);
-                ayatNumber2.setTypeface(new Constants(context).getTypeFacenaskh(context));
+                ayatNumber2.setTypeface(new StoreData(context).getTypeFacenaskh(context));
                 TextView ayatNumberValue = (TextView) layout.findViewById(R.id.txt8);
-                ayatNumberValue.setTypeface(new Constants(context).getTypeFacenaskh(context));
+                ayatNumberValue.setTypeface(new StoreData(context).getTypeFacenaskh(context));
                 TextView wordsNumber = (TextView) layout.findViewById(R.id.txt9);
-                wordsNumber.setTypeface(new Constants(context).getTypeFacenaskh(context));
+                wordsNumber.setTypeface(new StoreData(context).getTypeFacenaskh(context));
                 TextView wordsNumberValue = (TextView) layout.findViewById(R.id.txt10);
-                wordsNumberValue.setTypeface(new Constants(context).getTypeFacenaskh(context));
+                wordsNumberValue.setTypeface(new StoreData(context).getTypeFacenaskh(context));
                 TextView charNumber2 = (TextView) layout.findViewById(R.id.txt11);
-                charNumber2.setTypeface(new Constants(context).getTypeFacenaskh(context));
+                charNumber2.setTypeface(new StoreData(context).getTypeFacenaskh(context));
                 TextView charNumberValue = (TextView) layout.findViewById(R.id.txt12);
-                charNumberValue.setTypeface(new Constants(context).getTypeFacenaskh(context));
+                charNumberValue.setTypeface(new StoreData(context).getTypeFacenaskh(context));
                 TextView placeBirth2 = (TextView) layout.findViewById(R.id.txt13);
-                placeBirth2.setTypeface(new Constants(context).getTypeFacenaskh(context));
+                placeBirth2.setTypeface(new StoreData(context).getTypeFacenaskh(context));
                 TextView placeBirthValue = (TextView) layout.findViewById(R.id.txt14);
-                placeBirthValue.setTypeface(new Constants(context).getTypeFacenaskh(context));
+                placeBirthValue.setTypeface(new StoreData(context).getTypeFacenaskh(context));
                 parseInfoFile(ids.get(position));
 
                 tartebEsloraValue.setText(soraOrder.get(position));

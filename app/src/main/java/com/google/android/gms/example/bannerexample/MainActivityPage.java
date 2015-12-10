@@ -33,6 +33,7 @@ import android.widget.TextView;
 import com.google.android.gms.example.bannerexample.com.example.constant.ArabicNormalizer;
 import com.google.android.gms.example.bannerexample.com.example.constant.Constants;
 import com.google.android.gms.example.bannerexample.com.example.constant.NavDrawerItem;
+import com.google.android.gms.example.bannerexample.com.example.constant.StoreData;
 import com.google.android.gms.example.bannerexample.com.example.customviews.NavDrawerListAdapter;
 import com.google.android.gms.example.bannerexample.com.example.customviews.SoraCustomList;
 import com.google.android.gms.example.bannerexample.com.example.parsing.Data;
@@ -104,8 +105,8 @@ public class MainActivityPage extends ListActivity {
         header2 = (TextView) findViewById(R.id.header2);
 
 
-        header2.setTypeface(new Constants(this).getHeaderTypeFace(this));
-        header1.setTypeface(new Constants(this).getHeaderTypeFace(this));
+        header2.setTypeface(new StoreData(this).getHeaderTypeFace(this));
+        header1.setTypeface(new StoreData(this).getHeaderTypeFace(this));
         header = (RelativeLayout) findViewById(R.id.header);
         params = new DrawerLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
 
@@ -113,8 +114,8 @@ public class MainActivityPage extends ListActivity {
         text1 = (TextView) findViewById(R.id.txtview1);
         text2 = (TextView) findViewById(R.id.txtview2);
 
-        text1.setTypeface(new Constants(this).getTypeFaceStandard(this));
-        text2.setTypeface(new Constants(this).getTypeFaceStandard(this));
+        text1.setTypeface(new StoreData(this).getTypeFaceStandard(this));
+        text2.setTypeface(new StoreData(this).getTypeFaceStandard(this));
         text1.setTextColor(getResources().getColor(R.color.lgrey_start));
         text2.setTextColor(getResources().getColor(R.color.Gray));
 
@@ -350,38 +351,38 @@ public class MainActivityPage extends ListActivity {
                 popup.showAtLocation(layout, Gravity.CENTER_VERTICAL, 0, 0);
 
                 TextView txt1 = (TextView) layout.findViewById(R.id.txt1);
-                txt1.setTypeface(new Constants(this).getTypeFaceStandard(getApplicationContext()));
+                txt1.setTypeface(new StoreData(this).getTypeFaceStandard(getApplicationContext()));
 
                 TextView txt2 = (TextView) layout.findViewById(R.id.txt2);
-                txt2.setTypeface(new Constants(this).getTypeFaceThoulth(getApplicationContext()));
+                txt2.setTypeface(new StoreData(this).getTypeFaceThoulth(getApplicationContext()));
                 txt2.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         popup.dismiss();
 
-                        list.setTypeFace(new Constants(getApplicationContext()).getTypeFaceThoulth(getApplicationContext()));
+                        list.setTypeFace(new StoreData(getApplicationContext()).getTypeFaceThoulth(getApplicationContext()));
                         list.notifyDataSetChanged();
                     }
                 });
                 TextView txt3 = (TextView) layout.findViewById(R.id.txt3);
 
-                txt3.setTypeface(new Constants(this).getTypeFacediwany(getApplicationContext()));
+                txt3.setTypeface(new StoreData(this).getTypeFacediwany(getApplicationContext()));
                 txt3.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         popup.dismiss();
-                        list.setTypeFace(new Constants(getApplicationContext()).getTypeFacediwany(getApplicationContext()));
+                        list.setTypeFace(new StoreData(getApplicationContext()).getTypeFacediwany(getApplicationContext()));
                         list.notifyDataSetChanged();
                     }
                 });
                 TextView txt4 = (TextView) layout.findViewById(R.id.txt4);
-                txt4.setTypeface(new Constants(this).getTypeFacenaskh(getApplicationContext()));
+                txt4.setTypeface(new StoreData(this).getTypeFacenaskh(getApplicationContext()));
                 txt4.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
 
                         popup.dismiss();
-                        list.setTypeFace(new Constants(getApplicationContext()).getTypeFacenaskh(getApplicationContext()));
+                        list.setTypeFace(new StoreData(getApplicationContext()).getTypeFacenaskh(getApplicationContext()));
                         list.notifyDataSetChanged();
 
                     }

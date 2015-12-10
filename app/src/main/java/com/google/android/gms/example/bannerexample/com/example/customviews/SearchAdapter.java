@@ -17,6 +17,7 @@ import android.widget.TextView;
 
 import com.google.android.gms.example.bannerexample.R;
 import com.google.android.gms.example.bannerexample.com.example.constant.Constants;
+import com.google.android.gms.example.bannerexample.com.example.constant.StoreData;
 
 import java.util.ArrayList;
 import java.util.jar.Attributes;
@@ -44,8 +45,8 @@ public class SearchAdapter extends ArrayAdapter<String> {
         this.ayatList = ayatListList;
         this.soraLists=soraLists;
         this.ids=ids;
-        textSize=new Constants(context).getTextSize();
-        typeface=new Constants(context).getTypeface();
+        textSize=new StoreData(context).getTextSize();
+        typeface=new StoreData(context).getTypeface();
 
 
 
@@ -53,11 +54,11 @@ public class SearchAdapter extends ArrayAdapter<String> {
 
     public void setTextSize(float size){
         textSize = size;
-        new Constants(context).setTextSize(textSize);
+        new StoreData(context).setTextSize(textSize);
     }
 
     public void setTypeFace(int typeFaceNum){
-        new Constants(context).setTypeface(typeFaceNum);
+        new StoreData(context).setTypeface(typeFaceNum);
     }
 
     @Override
@@ -82,8 +83,8 @@ public class SearchAdapter extends ArrayAdapter<String> {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        textSize=new Constants(context).getTextSize();
-        typeface=new Constants(context).getTypeface();
+        textSize=new StoreData(context).getTextSize();
+        typeface=new StoreData(context).getTypeface();
         // TODO Auto-generated method stub
         Holder holder = new Holder();
         final View rowView;
@@ -95,19 +96,22 @@ public class SearchAdapter extends ArrayAdapter<String> {
         final int screenHeight = metrics.heightPixels;
 
         rowView = inflater.inflate(R.layout.search_item, null);
-        holder.ayaName = (TextView) rowView.findViewById(R.id.text1);
-        // holder.text.setTextDirection(View.TEXT_DIRECTION_RTL);
-        holder.ayaName.setTypeface(typeface);
-        holder.ayaName.setText(ayatList.get(position));
-        //holder.soraName.setTextSize(textSize);
-        holder.ayaName.setTextSize(textSize);
+        try {
+            holder.ayaName = (TextView) rowView.findViewById(R.id.text1);
+            // holder.text.setTextDirection(View.TEXT_DIRECTION_RTL);
+            holder.ayaName.setTypeface(typeface);
+            holder.ayaName.setText(ayatList.get(position));
+            //holder.soraName.setTextSize(textSize);
+            holder.ayaName.setTextSize(textSize);
+            holder.soraName = (TextView) rowView.findViewById(R.id.text2);
+            // holder.text.setTextDirection(View.TEXT_DIRECTION_RTL);
+            holder.soraName.setTypeface(typeface);
+            holder.soraName.setText(soraLists.get(position));
+            holder.soraName.setTextSize(textSize);
+        }
 
-
-        holder.soraName = (TextView) rowView.findViewById(R.id.text2);
-        // holder.text.setTextDirection(View.TEXT_DIRECTION_RTL);
-        holder.soraName.setTypeface(typeface);
-        holder.soraName.setText(soraLists.get(position));
-        holder.soraName.setTextSize(textSize);
+        catch (Exception e)
+        {}
 
 
 

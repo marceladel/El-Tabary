@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.google.android.gms.example.bannerexample.R;
 import com.google.android.gms.example.bannerexample.com.example.constant.Constants;
+import com.google.android.gms.example.bannerexample.com.example.constant.StoreData;
 
 import java.util.ArrayList;
 
@@ -39,15 +40,15 @@ public class BookmarListView extends ArrayAdapter<String> {
         this.ayatList = ayatListList;
         this.soraLists=soraLists;
         this.ids=ids;
-        typeface=new Constants(context).getTypeface();
-        textSize=new Constants(context).getTextSize();
+        typeface=new StoreData(context).getTypeface();
+        textSize=new StoreData(context).getTextSize();
 
 
     }
 
     public void setTextSize(float size){
         textSize = size;
-        new Constants(context).setTextSize(textSize);
+        new StoreData(context).setTextSize(textSize);
     }
 
 
@@ -74,8 +75,8 @@ public class BookmarListView extends ArrayAdapter<String> {
 
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
-        typeface=new Constants(context).getTypeface();
-        textSize=new Constants(context).getTextSize();
+        typeface=new StoreData(context).getTypeface();
+        textSize=new StoreData(context).getTextSize();
         // TODO Auto-generated method stub
         Holder holder = new Holder();
         final View rowView;

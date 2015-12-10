@@ -44,6 +44,7 @@ import com.facebook.widget.LoginButton;
 import com.facebook.widget.ProfilePictureView;
 import com.google.android.gms.example.bannerexample.R;
 import com.google.android.gms.example.bannerexample.com.example.constant.Constants;
+import com.google.android.gms.example.bannerexample.com.example.constant.StoreData;
 
 
 public class FaceBookShare extends FragmentActivity {
@@ -130,7 +131,7 @@ public class FaceBookShare extends FragmentActivity {
                         if (user != null) {
                             userName.setText("Hello, " + user.getName());
                             userId = user.getId();
-                            new Constants(getApplicationContext()).saveAccessToken(AccessToken);
+                            new StoreData(getApplicationContext()).saveAccessToken(AccessToken);
                             userImage.setImageBitmap(getFacebookProfilePicture(userId));
 
                         }

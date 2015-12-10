@@ -138,6 +138,11 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         db.close();
     }
 
+    public boolean deleteTitle(String id)
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        return db.delete(TABLE_CONTACTS, KEY_ID + "=" + id, null) > 0;
+    }
 
     // Getting contacts Count
     public int getContactsCount() {

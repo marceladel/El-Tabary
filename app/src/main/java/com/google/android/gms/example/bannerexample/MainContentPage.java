@@ -133,8 +133,8 @@ public class MainContentPage extends FragmentActivity {
         header1 = (TextView) findViewById(R.id.header1);
         header2 = (TextView) findViewById(R.id.header2);
 
-        header2.setTypeface(new Constants(this).getHeaderTypeFace(this));
-        header1.setTypeface(new Constants(this).getHeaderTypeFace(this));
+        header2.setTypeface(new StoreData(this).getHeaderTypeFace(this));
+        header1.setTypeface(new StoreData(this).getHeaderTypeFace(this));
 
         back = (ImageButton) findViewById(R.id.back);
         menu = (ImageButton) findViewById(R.id.menu_button);
@@ -396,7 +396,7 @@ public class MainContentPage extends FragmentActivity {
 //                    navMenuIcons.recycle();
                     adapter.notifyDataSetChanged();
 
-                    new Constants(getApplicationContext()).setTashkel(true);
+                    new StoreData(getApplicationContext()).setTashkel(true);
                     TextFragment.customListView.notifyDataSetChanged();
                     mAdapter.notifyDataSetChanged();
                 } else {
@@ -405,7 +405,7 @@ public class MainContentPage extends FragmentActivity {
                     // Recycle the typed array
 //                    navMenuIcons.recycle();
                     adapter.notifyDataSetChanged();
-                    new Constants(getApplicationContext()).setTashkel(false);
+                    new StoreData(getApplicationContext()).setTashkel(false);
                     TextFragment.customListView.notifyDataSetChanged();
                     mAdapter.notifyDataSetChanged();
                 }

@@ -137,7 +137,7 @@ public class TextFragment extends Fragment {
         View tv = layoutView.findViewById(R.id.text);
 
         listView = (ListView) layoutView.findViewById(R.id.list);
-        boolean tashkelFlag = new Constants(getActivity()).getTashkel();
+        boolean tashkelFlag = new StoreData(getActivity()).getTashkel();
         context = this;
         db = new DataBaseHelper(getActivity());
         progressbar = (ProgressBar) layoutView.findViewById(R.id.loading);
@@ -249,11 +249,11 @@ public class TextFragment extends Fragment {
                             Log.d("filesbeforinsert", newFiles.toString());
                             Log.d("fileof pos", newFiles.get(0));
                             db.addContact(new FileData(newFiles.get(0), headers.get(0), supHeaders.get(0)));
-                            Toast.makeText(getActivity(), "Done", Toast.LENGTH_LONG).show();
+                            Toast.makeText(getActivity(), "تم", Toast.LENGTH_LONG).show();
 
 
                         } else {
-                            Toast.makeText(getActivity(), "already saved", Toast.LENGTH_LONG).show();
+                            Toast.makeText(getActivity(), "لقد تم الحفظ من قبل", Toast.LENGTH_LONG).show();
 
                         }
 
@@ -284,7 +284,7 @@ public class TextFragment extends Fragment {
         share.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String accessToken=new Constants(getActivity()).getAccessToken();
+                String accessToken=new StoreData(getActivity()).getAccessToken();
                 Session   session;
                 if (accessToken != "") {
                     Log.d("accessToken",accessToken);
@@ -325,16 +325,16 @@ public class TextFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                boolean tashkelFlag = new Constants(getActivity()).getTashkel();
+                boolean tashkelFlag = new StoreData(getActivity()).getTashkel();
 
                 tabLayout.setVisibility(View.INVISIBLE);
-                tashkelFlag = new Constants(getActivity()).getTashkel();
+                tashkelFlag = new StoreData(getActivity()).getTashkel();
                 if (tashkelFlag == false) {
-                    new Constants(getActivity()).setTashkel(true);
+                    new StoreData(getActivity()).setTashkel(true);
                     TextFragment.customListView.notifyDataSetChanged();
                     MainContentPage.mAdapter.notifyDataSetChanged();
                 } else {
-                    new Constants(getActivity()).setTashkel(false);
+                    new StoreData(getActivity()).setTashkel(false);
                     TextFragment.customListView.notifyDataSetChanged();
                     MainContentPage.mAdapter.notifyDataSetChanged();
                 }
@@ -362,15 +362,15 @@ public class TextFragment extends Fragment {
         popup.setBackgroundDrawable(getResources().getDrawable(R.drawable.popup_drawable));
         popup.setAnimationStyle(R.style.AnimationPopup);
         popup.showAtLocation(layout, Gravity.CENTER_VERTICAL, 0, 0);
-        ((TextView) layout.findViewById(R.id.txt1)).setTypeface(new Constants(getActivity()).getTypeFaceStandard(getActivity()));
+        ((TextView) layout.findViewById(R.id.txt1)).setTypeface(new StoreData(getActivity()).getTypeFaceStandard(getActivity()));
         TextView txt2 = (TextView) layout.findViewById(R.id.txt2);
-        txt2.setTypeface(new Constants(getActivity()).getTypeFaceThoulth(getActivity()));
+        txt2.setTypeface(new StoreData(getActivity()).getTypeFaceThoulth(getActivity()));
         txt2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Log.d("onClickText0", "msg");
                 popup.dismiss();
-                new Constants(getActivity()).setTypeface(1);
+                new StoreData(getActivity()).setTypeface(1);
                 TextFragment.customListView.notifyDataSetChanged();
                 MainContentPage.mAdapter.notifyDataSetChanged();
 
@@ -379,13 +379,13 @@ public class TextFragment extends Fragment {
             }
         });
         TextView txt3 = (TextView) layout.findViewById(R.id.txt3);
-        txt3.setTypeface(new Constants(getActivity()).getTypeFacediwany(getActivity()));
+        txt3.setTypeface(new StoreData(getActivity()).getTypeFacediwany(getActivity()));
         txt3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Log.d("onClickText1", "msg");
                 popup.dismiss();
-                new Constants(getActivity()).setTypeface(2);
+                new StoreData(getActivity()).setTypeface(2);
                 TextFragment.customListView.notifyDataSetChanged();
                 MainContentPage.mAdapter.notifyDataSetChanged();
 
@@ -394,14 +394,14 @@ public class TextFragment extends Fragment {
             }
         });
         TextView txt4 = (TextView) layout.findViewById(R.id.txt4);
-        txt4.setTypeface(new Constants(getActivity()).getTypeFacenaskh(getActivity()));
+        txt4.setTypeface(new StoreData(getActivity()).getTypeFacenaskh(getActivity()));
         txt4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Log.d("onClickText2", "msg");
 
                 popup.dismiss();
-                new Constants(getActivity()).setTypeface(3);
+                new StoreData(getActivity()).setTypeface(3);
                 TextFragment.customListView.notifyDataSetChanged();
                 MainContentPage.mAdapter.notifyDataSetChanged();
 

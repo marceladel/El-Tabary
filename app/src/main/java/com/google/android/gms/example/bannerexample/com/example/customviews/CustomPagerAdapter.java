@@ -63,7 +63,7 @@ public class CustomPagerAdapter extends PagerAdapter {
         doNotifyDataSetChangedOnce = true;
         this.NumberOfPages = NumberOfPages;
         db = new DataBaseHelper(context);
-        tashkelFlag = new Constants(context).getTashkel();
+        tashkelFlag = new StoreData(context).getTashkel();
 
     }
 
@@ -88,7 +88,7 @@ public class CustomPagerAdapter extends PagerAdapter {
 
     @Override
     public Object instantiateItem(ViewGroup container, final int position) {
-        tashkelFlag = new Constants(mContext).getTashkel();
+        tashkelFlag = new StoreData(mContext).getTashkel();
 
         Log.d("position of init", position + "");
         View itemView = null;

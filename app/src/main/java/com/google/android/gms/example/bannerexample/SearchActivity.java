@@ -20,6 +20,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewTreeObserver;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.CompoundButton;
 import android.widget.EditText;
@@ -34,6 +35,7 @@ import android.widget.TextView;
 import com.google.android.gms.example.bannerexample.com.example.constant.ArabicNormalizer;
 import com.google.android.gms.example.bannerexample.com.example.constant.Constants;
 import com.google.android.gms.example.bannerexample.com.example.constant.NavDrawerItem;
+import com.google.android.gms.example.bannerexample.com.example.constant.StoreData;
 import com.google.android.gms.example.bannerexample.com.example.customviews.NavDrawerListAdapter;
 import com.google.android.gms.example.bannerexample.com.example.customviews.SearchAdapter;
 import com.google.android.gms.example.bannerexample.com.example.customviews.SoraCustomList;
@@ -89,6 +91,7 @@ public class SearchActivity extends Activity implements AdapterView.OnItemClickL
     TextView text;
     ArrayList<String> newData = new ArrayList<String>();
     TextView textNoResults;
+    ArrayList<SearchDataArrayElements> searchElemnts= new ArrayList<SearchDataArrayElements>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,12 +103,12 @@ public class SearchActivity extends Activity implements AdapterView.OnItemClickL
         header1 = (TextView) findViewById(R.id.header1);
         header2 = (TextView) findViewById(R.id.header2);
         text = (TextView) findViewById(R.id.text);
-        text.setTypeface(new Constants(this).getTypeFacenaskh(this));
+        text.setTypeface(new StoreData(this).getTypeFacenaskh(this));
         textNoResults=(TextView) findViewById(R.id.text2);
         textNoResults.setVisibility(View.INVISIBLE);
 
-        header2.setTypeface(new Constants(this).getHeaderTypeFace(this));
-        header1.setTypeface(new Constants(this).getHeaderTypeFace(this));
+        header2.setTypeface(new StoreData(this).getHeaderTypeFace(this));
+        header1.setTypeface(new StoreData(this).getHeaderTypeFace(this));
 
         back = (ImageButton) findViewById(R.id.back);
         menu = (ImageButton) findViewById(R.id.menu_button);
@@ -129,6 +132,9 @@ public class SearchActivity extends Activity implements AdapterView.OnItemClickL
 
 
         input = (EditText) findViewById(R.id.input);
+        input.setFocusable(true);
+        InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+        imm.toggleSoftInput(0, InputMethodManager.SHOW_FORCED); // show
         listView = (ListView) findViewById(R.id.list);
         listView.setOnItemClickListener(this);
         header = (RelativeLayout) findViewById(R.id.header);
@@ -147,6 +153,20 @@ public class SearchActivity extends Activity implements AdapterView.OnItemClickL
                     Log.d("value is", value);
                     SearchTask object = new SearchTask();
                     object.execute();
+                }
+
+                if(s.length()==0 && adapter2!=null) {
+                    Log.d("insideCon","msg");
+                    ayatList.clear();
+                    soraList.clear();
+                    files.clear();
+                    AyatsearchRes.clear();
+                    FilesSearchRes.clear();
+                    SorasearchRes.clear();
+                    newData.clear();
+                    searchElemnts.clear();
+                    adapter2.notifyDataSetChanged();
+                    //listView.setAdapter(adapter2);
                 }
 
             }
@@ -376,10 +396,10 @@ public class SearchActivity extends Activity implements AdapterView.OnItemClickL
                 popup.showAtLocation(layout, Gravity.CENTER_VERTICAL, 0, 0);
 
                 TextView txt1 = (TextView) layout.findViewById(R.id.txt1);
-                txt1.setTypeface(new Constants(getApplicationContext()).getTypeFaceStandard(getApplicationContext()));
+                txt1.setTypeface(new StoreData(getApplicationContext()).getTypeFaceStandard(getApplicationContext()));
 
                 TextView txt2 = (TextView) layout.findViewById(R.id.txt2);
-                txt2.setTypeface(new Constants(getApplicationContext()).getTypeFaceThoulth(getApplicationContext()));
+                txt2.setTypeface(new StoreData(getApplicationContext()).getTypeFaceThoulth(getApplicationContext()));
                 txt2.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -391,7 +411,7 @@ public class SearchActivity extends Activity implements AdapterView.OnItemClickL
                 });
                 TextView txt3 = (TextView) layout.findViewById(R.id.txt3);
 
-                txt3.setTypeface(new Constants(getApplicationContext()).getTypeFacediwany(getApplicationContext()));
+                txt3.setTypeface(new StoreData(getApplicationContext()).getTypeFacediwany(getApplicationContext()));
                 txt3.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -401,7 +421,7 @@ public class SearchActivity extends Activity implements AdapterView.OnItemClickL
                     }
                 });
                 TextView txt4 = (TextView) layout.findViewById(R.id.txt4);
-                txt4.setTypeface(new Constants(getApplicationContext()).getTypeFacenaskh(getApplicationContext()));
+                txt4.setTypeface(new StoreData(getApplicationContext()).getTypeFacenaskh(getApplicationContext()));
                 txt4.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -469,20 +489,23 @@ public class SearchActivity extends Activity implements AdapterView.OnItemClickL
         //
         @Override
         protected void onPreExecute() {
+            Log.d("inside Task","searh msg");
 
-            AyatsearchRes.clear();
-            SorasearchRes.clear();
-            FilesSearchRes.clear();
-            newData.clear();
             ayatList.clear();
             soraList.clear();
             files.clear();
+            AyatsearchRes.clear();
+            FilesSearchRes.clear();
+            SorasearchRes.clear();
+            newData.clear();
+            searchElemnts.clear();
+
         }
 
         @Override
         protected String doInBackground(String... params) {
 
-            ArrayList<SearchDataArrayElements> searchElemnts;
+
 
             try {
                 fileContent = new Constants(getApplicationContext()).readAssets(getApplicationContext(), "eltabary", "search_file.txt");
@@ -516,6 +539,7 @@ public class SearchActivity extends Activity implements AdapterView.OnItemClickL
                 textNoResults.setVisibility(View.VISIBLE);
             }
             else {
+                Log.d("data size is", newData.size()+"");
                 textNoResults.setVisibility(View.INVISIBLE);
                 try {
                     for (int i = 0; i < AyatsearchRes.size(); i++) {
