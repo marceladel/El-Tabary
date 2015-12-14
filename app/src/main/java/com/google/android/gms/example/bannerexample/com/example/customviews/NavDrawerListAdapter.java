@@ -89,10 +89,12 @@ public class NavDrawerListAdapter extends BaseAdapter {
         LinearLayout drawer = (LinearLayout) convertView.findViewById(R.id.drawer_layout);
         drawer.getLayoutParams().height = height;
         seekBar.setVisibility(View.INVISIBLE);
+        seekBar.setProgress((int)new StoreData(context).getTextSize());
 
         if (flag.equals("MainContent") && position == 3) {
             seekBar.setLayoutParams(params);
             seekBar.setVisibility(View.VISIBLE);
+
         }
 
         if (flag.equals("Search") && position == 1) {

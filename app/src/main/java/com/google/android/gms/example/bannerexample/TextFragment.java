@@ -102,6 +102,7 @@ public class TextFragment extends Fragment {
             .asList("publish_actions");
     Session.StatusCallback statusCallback;
     private UiLifecycleHelper uiHelper;
+    List<String> declinedPerm=new ArrayList<String>();
 
 
 
@@ -284,6 +285,7 @@ public class TextFragment extends Fragment {
         share.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                tabLayout.setVisibility(View.INVISIBLE);
                 String accessToken=new StoreData(getActivity()).getAccessToken();
                 Session   session;
                 if (accessToken != "") {
@@ -494,6 +496,7 @@ public class TextFragment extends Fragment {
 
     public void postStatusMessage(String msg, Session session) {
 
+        if(checkPermissions()) {
             Request request = Request.newStatusUpdateRequest(
                     session, msg,
                     new Request.Callback() {
@@ -501,12 +504,42 @@ public class TextFragment extends Fragment {
                         public void onCompleted(Response response) {
                             if (response.getError() == null)
                                 Toast.makeText(getActivity(),
-                                        "Status updated successfully",
+                                        "لقد تمت المشاركة بنجاح",
                                         Toast.LENGTH_LONG).show();
                         }
                     });
             request.executeAsync();
+        }
+        else
+        {
+            requestPermissions();
+        }
 
+    }
+
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (Session.getActiveSession() != null) {
+            Session.getActiveSession().onActivityResult(getActivity(), requestCode, resultCode, data);
+            Log.d("flag value is ", requestCode + "");
+            declinedPerm = Session.getActiveSession().getDeclinedPermissions();
+            // Log.d("declined Perm", Session.getActiveSession().getDeclinedPermissions().toString());
+            try {
+
+                if (declinedPerm.contains("publish_actions")) {
+                    getActivity().finish();
+                } else {
+                    if (!checkPermissions()) {
+                        Toast.makeText(getActivity(), "ادخل اختيارك", Toast.LENGTH_SHORT).show();
+                    }
+                    postStatusMessage(paragraphs.get(0), Session.getActiveSession());
+                }
+
+            } catch (Exception e) {
+            }
+        }
     }
 
 

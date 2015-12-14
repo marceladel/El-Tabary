@@ -64,14 +64,15 @@ public class FaceBookShare extends FragmentActivity {
     private static final List<String> PERMISSIONS = Arrays
             .asList("publish_actions");
 
-
     private static String message = "Sample status posted from android app";
     SharedPreferences sharedPreferences;
     Editor editor;
     String AccessToken;
     String sharedData;
     ImageView userImage;
-
+    List<String> declinedPerm=new ArrayList<String>();
+    boolean backClick=false;
+    int backButtonCount;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -88,9 +89,9 @@ public class FaceBookShare extends FragmentActivity {
 
         setContentView(R.layout.activity_face_book_share);
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        Intent get= getIntent();
-        sharedData=get.getStringExtra("data");
-        userImage=(ImageView)findViewById(R.id.userImage);
+        Intent get = getIntent();
+        sharedData = get.getStringExtra("data");
+        userImage = (ImageView) findViewById(R.id.userImage);
 
 //        try {
 //            userAccessToken=settings.getString("accessToken","");
@@ -109,7 +110,6 @@ public class FaceBookShare extends FragmentActivity {
         userName = (TextView) findViewById(R.id.user_name);
         loginBtn = (LoginButton) findViewById(R.id.fb_login_button);
         preferences = PreferenceManager.getDefaultSharedPreferences(this);
-        loginBtn.setReadPermissions("public_profile", "user_friends", "read_friendlists", "email");
 
     }
 
@@ -119,11 +119,10 @@ public class FaceBookShare extends FragmentActivity {
                          Exception exception) {
             // boolean flag2=sharedPreferences.getBoolean("flag", false);
 
-            if (state.isOpened())
-            {
+            if (state.isOpened()) {
 
                 Log.d("FacebookSampleActivity", "Facebook session opened");
-               final String AccessToken=session.getAccessToken();
+                final String AccessToken = session.getAccessToken();
 
                 loginBtn.setUserInfoChangedCallback(new LoginButton.UserInfoChangedCallback() {
                     @Override
@@ -133,13 +132,12 @@ public class FaceBookShare extends FragmentActivity {
                             userId = user.getId();
                             new StoreData(getApplicationContext()).saveAccessToken(AccessToken);
                             userImage.setImageBitmap(getFacebookProfilePicture(userId));
-
+                            Log.d("userid", userId);
                         }
                     }
                 });
 
                 Log.d("statusCallback AccessToken", AccessToken);
-
 
 
             } else if (state.isClosed()) {
@@ -156,27 +154,27 @@ public class FaceBookShare extends FragmentActivity {
 //    }
 
 
-     public void postStatusMessage(String msg) {
-     if (checkPermissions()) {
-         Log.d("check prem","msg");
-     Request request = Request.newStatusUpdateRequest(
-     Session.getActiveSession(), msg,
-     new Request.Callback() {
-     @Override
-     public void onCompleted(Response response) {
-     if (response.getError() == null)
-     Toast.makeText(FaceBookShare.this,
-     "Status updated successfully",
-     Toast.LENGTH_LONG).show();
-         finish();
-     }
-     });
-     request.executeAsync();
-     } else {
-         Log.d("request perm","msg");
-     requestPermissions();
-     }
-     }
+    public void postStatusMessage(String msg) {
+        if (checkPermissions()) {
+            Log.d("check prem", "msg");
+            Request request = Request.newStatusUpdateRequest(
+                    Session.getActiveSession(), msg,
+                    new Request.Callback() {
+                        @Override
+                        public void onCompleted(Response response) {
+                            if (response.getError() == null)
+                                Toast.makeText(FaceBookShare.this,
+                                        "لقد تمت المشاركة بنجاح",
+                                        Toast.LENGTH_LONG).show();
+                            finish();
+                        }
+                    });
+            request.executeAsync();
+        } else {
+            Log.d("request perm", "msg");
+            requestPermissions();
+        }
+    }
 
 
     public boolean checkPermissions() {
@@ -192,22 +190,22 @@ public class FaceBookShare extends FragmentActivity {
         Log.d("requestPerm", "msg");
         Session s = Session.getActiveSession();
 
-        if (s != null)
-        {
+        if (s != null) {
             Session.NewPermissionsRequest newPermissionsRequest = new Session.NewPermissionsRequest(
                     this, PERMISSIONS);
             s.requestNewPublishPermissions(newPermissionsRequest);
+            boolean flag= s.isPermissionGranted(PERMISSIONS.toString());
+            Log.d("flag",flag+"");
         }
 
 
     }
 
     @Override
-    public void onResume()
-    {
+    public void onResume() {
         super.onResume();
         uiHelper.onResume();
-       // buttonsEnabled(Session.getActiveSession().isOpened());
+        // buttonsEnabled(Session.getActiveSession().isOpened());
     }
 
     @Override
@@ -224,8 +222,7 @@ public class FaceBookShare extends FragmentActivity {
 
 
     // get facebook profile pic
-    public static Bitmap getFacebookProfilePicture(String userID)
-    {
+    public static Bitmap getFacebookProfilePicture(String userID) {
         URL imageURL = null;
         try {
             imageURL = new URL("https://graph.facebook.com/" + userID + "/picture?type=large");
@@ -234,12 +231,10 @@ public class FaceBookShare extends FragmentActivity {
             e.printStackTrace();
         }
         Bitmap bitmap = null;
-        try
-        {
+        try {
 
             bitmap = BitmapFactory.decodeStream(imageURL.openConnection().getInputStream());
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
@@ -250,18 +245,41 @@ public class FaceBookShare extends FragmentActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(Session.getActiveSession()!=null) {
+        if (Session.getActiveSession() != null) {
             Session.getActiveSession().onActivityResult(this, requestCode, resultCode, data);
-            postStatusMessage(sharedData);
+            Log.d("flag value is ", requestCode + "");
+            declinedPerm=Session.getActiveSession().getDeclinedPermissions();
+            // Log.d("declined Perm", Session.getActiveSession().getDeclinedPermissions().toString());
+            try {
+
+                if(declinedPerm.contains("publish_actions")) {
+                    finish();
+                }
+                else {
+                    if(!checkPermissions()) {
+                        Toast.makeText(FaceBookShare.this, "ادخل اختيارك", Toast.LENGTH_SHORT).show();
+                    }
+                    postStatusMessage(sharedData);
+                }
+
+
+
+            } catch (Exception e) {
+            }
         }
     }
 
+    @Override
+    public void onBackPressed()
+    {
+        backClick=true;
+        finish();
+    }
     @Override
     public void onSaveInstanceState(Bundle savedState) {
         super.onSaveInstanceState(savedState);
         uiHelper.onSaveInstanceState(savedState);
     }
-
 
 
 }

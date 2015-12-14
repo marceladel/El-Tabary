@@ -239,7 +239,13 @@ public class SoraCustomList extends ArrayAdapter<String> {
                         R.drawable.popup_drawable));
 
                 popup.setAnimationStyle(R.style.AnimationPopup);
-                popup.showAtLocation(layout, Gravity.CENTER_VERTICAL, 0, 0);
+                try{
+                    popup.showAtLocation(layout, Gravity.CENTER_VERTICAL, 0, 0);
+                }
+                catch (Exception e)
+                {
+
+                }
                 TextView soraName = (TextView) layout.findViewById(R.id.soraname);
                 TextView textView = (TextView) layout.findViewById(R.id.textview);
                 textView.setTypeface(new StoreData(context).getTypeFacenaskh(context));

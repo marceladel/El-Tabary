@@ -10,16 +10,16 @@
     <string name="banner_ad_unit_id">ca-app-pub-3940256099942544/6300978111</string>
 
     <string name="eltabry_ad_unit_id2">ca-app-pub-6900774995468345/4020497114</string>
-    <string name="title_activity_main">ElTabary</string>
-    <string name="title_activity_ayat">AyatActivity</string>
-    <string name="title_activity_main_content">MainContent</string>
-    <string name="title_activity_view_pager">ViewPagerActivity</string>
-    <string name="title_activity_search">SearchActivity</string>
+    <string name="title_activity_main">تفسير الطبرى</string>
+    <string name="title_activity_ayat">تفسير الطبرى</string>
+    <string name="title_activity_main_content">تفسير الطبرى</string>
+    <string name="title_activity_view_pager">تفسير الطبرى</string>
+    <string name="title_activity_search">تفسير الطبرى</string>
 
 <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="title_activity_test">Test</string>
-    <string name="title_activity_test2">Test2</string>
+    <string name="hello_blank_fragment">تفسير الطبرى</string>
+    <string name="title_activity_test">تفسير الطبرى</string>
+    <string name="title_activity_test2">تفسير الطبرى</string>
     <string name="drawer_open">Slider Menu Opened</string>
     <string name="drawer_close">Slider Menu Closed</string>
 
@@ -51,13 +51,13 @@
 
     <!-- Content Description -->
     <string name="desc_list_item_icon">Item Icon</string>
-    <string name="title_activity_main_activity_page">MainActivityPage</string>
-    <string name="title_activity_book_mark">BookMarkActivity</string>
-    <string name="title_activity_view_pager_activity_updated">ViewPagerActivityUpdated</string>
-    <string name="title_activity_text_fragment">TextFragment</string>
-    <string name="title_activity_main_content_page">MainContentPage</string>
-    <string name="title_activity_splach_screen">ElTabary</string>
-    <string name="title_activity_create_file">CreateFile</string>
-    <string name="title_activity_face_book_share">FaceBookShare</string>
+    <string name="title_activity_main_activity_page">تفسير الطبرى</string>
+    <string name="title_activity_book_mark">تفسير الطبرى</string>
+    <string name="title_activity_view_pager_activity_updated">تفسير الطبرى</string>
+    <string name="title_activity_text_fragment">تفسير الطبرى</string>
+    <string name="title_activity_main_content_page">تفسير الطبرى</string>
+    <string name="title_activity_splach_screen">تفسير الطبرى</string>
+    <string name="title_activity_create_file">تفسير الطبرى</string>
+    <string name="title_activity_face_book_share">تفسير الطبرى</string>
 
 </resources>
